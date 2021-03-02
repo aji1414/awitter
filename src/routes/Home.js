@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {authService, dbService} from "fbase";
+import Aweet from "components/Aweet";
 
 const Home = ({userObj}) => {
 
@@ -46,11 +47,11 @@ const Home = ({userObj}) => {
             </form>
             <div>
                 {aweets.map((aweet) => (
-                    <div key={aweet.id}>
-                        <h4>
-                            {aweet.text}
-                        </h4>
-                    </div>
+                    <Aweet 
+                    key={aweet.id} 
+                    aweetObj={aweet}
+                    isOwner={aweet.creatorId === userObj.uid}
+                    />
                 ))}
             </div>
         </div>
