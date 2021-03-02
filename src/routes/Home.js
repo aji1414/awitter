@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {authService, dbService} from "fbase";
 
-const Home = () => {
+const Home = ({userObj}) => {
 
     const [aweet, setAweet] = useState("");
+    const [aweets, setAweets] = useState([]);
 
+    useEffect(() => {
+        dbService.collection("aweets").onSnapshot(snapshot => {
+            const aweetArray = snapshot.docs.map(doc =>({id:doc.id, ...doc.data()}));
+            setAweets(aweetArray);
+        })
+    }, [])
+    
     const onSubmit = async event => {
         event.preventDefault();
         await dbService.collection("aweets").add({
-            aweet:aweet,
-            createdAt: Date.now()
+            text:aweet,
+            createdAt: Date.now(),
+            creatorId: userObj.uid
         });
         setAweet("");
     };
@@ -35,6 +44,15 @@ const Home = () => {
                 value="Aweet"
                 />
             </form>
+            <div>
+                {aweets.map((aweet) => (
+                    <div key={aweet.id}>
+                        <h4>
+                            {aweet.text}
+                        </h4>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }
