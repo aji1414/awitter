@@ -6,6 +6,7 @@ const Home = ({userObj}) => {
 
     const [aweet, setAweet] = useState("");
     const [aweets, setAweets] = useState([]);
+    const [attachment, setAttachment] = useState(null);
 
     useEffect(() => {
         dbService.collection("aweets").onSnapshot(snapshot => {
@@ -30,6 +31,19 @@ const Home = ({userObj}) => {
         setAweet(value);
     }
 
+    const onFileChange = event => {
+        const {target:{files}} = event;
+        const theFile = files[0];
+        const reader = new FileReader();
+        reader.onloadend = (finishedEvent) => {
+            const {currentTarget:{result}} = finishedEvent;
+            setAttachment(result)
+        }
+        reader.readAsDataURL(theFile);
+    }
+
+    const onClearAttachmentClick = () => setAttachment(null) 
+
     return(
         <div>
             <form onSubmit={onSubmit}>
@@ -40,10 +54,14 @@ const Home = ({userObj}) => {
                 placeholder="What's on your mind"
                 max={120}
                 />
-                <input
-                type="submit"
-                value="Aweet"
-                />
+                <input type="file" accept="image/*" onChange={onFileChange} />
+                <input type="submit" value="Aweet" />
+                {attachment && 
+                    <div>
+                        <img src={attachment} width="200px" height="200px" />
+                        <button onClick={onClearAttachmentClick}>Clear</button>
+                    </div>
+                }       
             </form>
             <div>
                 {aweets.map((aweet) => (
