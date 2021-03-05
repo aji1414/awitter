@@ -21,7 +21,7 @@ const Home = ({userObj}) => {
 
         let attachmentUrl = "";
         
-        if(attachment != ""){
+        if(attachment !== ""){
             const attachmentRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
             const response = await attachmentRef.putString(attachment, "data_url")
             attachmentUrl = await response.ref.getDownloadURL();
@@ -32,7 +32,7 @@ const Home = ({userObj}) => {
             createdAt: Date.now(),
             creatorId: userObj.uid,
             attachmentUrl
-        }
+        };
 
         await dbService.collection("aweets").add(aweetObj);
         setAweet("");
