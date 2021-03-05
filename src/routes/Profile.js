@@ -28,33 +28,31 @@ const Profile = ({refreshUser, userObj}) => {
         }
     }
 
-    // const getMyAweets = async () => {
-    //     const aweets = await dbService
-    //     .collection("aweets")
-    //     .where("creatorId", "==", userObj.uid)
-    //     // .orderBy("createdAt", "desc")
-    //     .get()
-    //     console.log(aweets.docs.map(doc => doc.data()))
-    // };
-
-    // useEffect(() => {
-    //     getMyAweets();
-    // }, [])
-
-        
+      
 
     return(
-        <>
-        <form onSubmit={onSubmit}>
-            <input 
-            onChange={onChange}
-            type="text" 
-            placeholder="Display name" 
-            value={newDisplayName}/>
-            <input type="submit" value="Update profile" />
-        </form>
-            <button onClick={onLogOutClick}>Log Out</button>
-        </>
+        <div className="container">
+            <form onSubmit={onSubmit} className="profileForm">
+                <input 
+                onChange={onChange}
+                type="text"
+                autoFocus 
+                className="formInput"
+                placeholder="Display name" 
+                value={newDisplayName}/>
+                <input
+                    type="submit"
+                    value="Update Profile Name"
+                    className="formBtn"
+                    style={{
+                        marginTop: 10,
+                    }}
+                />
+            </form>
+            <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+                Log Out
+            </span>        
+        </div>
     )
 }
 
