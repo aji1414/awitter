@@ -7,7 +7,7 @@ const Home = ({userObj}) => {
 
     const [aweet, setAweet] = useState("");
     const [aweets, setAweets] = useState([]);
-    const [attachment, setAttachment] = useState(null);
+    const [attachment, setAttachment] = useState("");
 
     useEffect(() => {
         dbService.collection("aweets").onSnapshot(snapshot => {
