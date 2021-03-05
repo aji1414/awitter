@@ -2,7 +2,9 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 
-const Navigation = ({userObj}) => (
+const Navigation = ({userObj}) => {
+    console.log(userObj);
+    return(
     <nav>
         <ul>
             <li>
@@ -12,7 +14,7 @@ const Navigation = ({userObj}) => (
                 <Link to="/profile">{userObj.displayName}'s profile</Link>
             </li>
         </ul>
-    </nav>
-);
+    </nav>)
+};
 
 export default Navigation;
