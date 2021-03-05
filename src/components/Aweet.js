@@ -46,15 +46,16 @@ const Aweet = ({aweetObj, isOwner}) => {
                     <input type="submit" value="Update Aweet" />
                 </form> 
                 : 
-                <h4>
-                    {aweetObj.text}
+                <>
+                <h4>{aweetObj.text}</h4>
+                    {aweetObj.attachmentUrl && <img src={aweetObj.attachmentUrl} width="50px" height="50px"/>}
                     {isOwner && 
                         <>
                         <button onClick={onDeleteClick}>Delete Aweet</button>
                         <button onClick={toggleEditing}>Edit Aweet</button>
                         </>
                     }
-                </h4>
+                </>
             }
         </div>
     ) 
